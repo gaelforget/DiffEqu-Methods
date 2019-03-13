@@ -3,12 +3,12 @@
 This repository contains three `.jl` function files and two `.ipynb` Jupyter notebooks:
 
 * `.jl` files
-** `diffequ-manual.jl`
-** `diffequ-slide.jl`
-** `diffequ-pkg.jl`
+    * `diffequ-manual.jl`
+    * `diffequ-slide.jl`
+    * `diffequ-pkg.jl`
 * `.ipynb` files
-** `DiffEqu-Methods.ipynb`
-** `DiffEqu-Slider.ipynb`
+    * `DiffEqu-Methods.ipynb`
+    * `DiffEqu-Slider.ipynb`
 
 Below are the descriptions of each file:
 
