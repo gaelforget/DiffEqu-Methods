@@ -1,54 +1,33 @@
-# Manually solving a differential equation
-## Using `diffequ-manual.jl`
-Suppose we are given the following differential equation: 
+# Solving Differential Equations: Different Methods
 
-$$ \dot{X} = \cos{(2\pi t)} + C, X(0) = 0 $$
+This repository contains three `.jl` function files and two `.ipynb` Jupyter notebooks:
 
+* `.jl` files
+** `diffequ-manual.jl`
+** `diffequ-slide.jl`
+** `diffequ-pkg.jl`
+* `.ipynb` files
+** `DiffEqu-Methods.ipynb`
+** `DiffEqu-Slider.ipynb`
 
-Where $C$ is an arbitrary number. This differential equation is written in Julia as follows:
-```
-    dX / dt = f(t),
-    where f(t)=cos(2*pi*t)+randn(1)
-```
-Using separation of variables, we can solve for the original function $X(t) = F(t)$ as shown:
+Below are the descriptions of each file:
 
-$$ X(t) = \dfrac{1}{2\pi}\sin{2\pi t} + Ct $$
+## `diffequ-manual.jl`
 
-For the scope of Julia, we can define the function $X(t)$ in the following manner:
+This function file solves a differential equation manually (as the name suggests) using separation of variables, then creates a plot of the solution.
 
-```
-    function X(t)
-        X = 1/(2*pi)*sin(2*pi*t)+randn(1)[1]*t;
-    end
-```
+## `diffequ-slide.jl`
 
-we're interested in the time interval between $t=0$ and $t=10$, with $\Delta t_{step} = 0.1$ In Julia, we can create a $1\times N$ array for these $t$ values using the following code:
+This function file creates a plot of the solution from `diffequ-manual.jl`, but this time with an interactive widget which alters the time interval, and adjusts the plot size accordingly.
 
-```
-    t_list = collect(range(0,stop=10,step=0.1))
-    N = size(t_list)[1]
-```
+## `diffequ-pkg.jl`
 
-The `N` variable is used to ensure the array which will store values of $X(t)$ is the same size as `t_list`. We now can create the `X_list` array in the following manner:
+This function file solves a different differential equation using the `DifferentialEquations.jl` package, and creates a plot of the solution.
 
-```
-    X_list = zeros(1,N)
-    for j = 1:N
-        X_list[j] = X(t_list[j])
-    end
-```
+## `DiffEqu-Methods.ipynb`
 
-However, `X_list` is currently a $N\times 1$ array, but we can fix that by running the following line of code:
+This notebook details the funcitonalities of the two `.jl` files which solve an equation, and explains the differences between the two approaches. It also compares the two solutions on the same plot (thought they're not meant to be equal solutions).
 
-```
-    X_list = X_list'
-```
+## `DiffEqu-Slider.ipynb`
 
-Finally, if we wish to plot our $X(t)$ function, we can do so using the `Plots.jl` package and the `gr()` back-end.
-
-```
-    using Plots, gr();
-    plot(t_list,X_list,lw=3,label="X(t)")
-```
-
-The `diffequ-manual.jl` file implements this method to plot the solution of the differential equation.
+This notebook demonstrates the creation of a plot with an interactive slider widget using the `Interact.jl` package.
